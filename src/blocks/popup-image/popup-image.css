@@ -1,0 +1,6 @@
+@import url(./__image/popup-image__image.css);
+@import url(./__image-title/popup-image__image-title.css);
+
+.popup-image {
+    grid-template-columns: 1fr minmax(min-content, max-content) 1fr;
+}

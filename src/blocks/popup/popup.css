@@ -1,0 +1,18 @@
+@import url(./__close-button/popup__close-button.css);
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 2;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .4s linear, visibility .5s linear;
+
+    display: grid;
+    grid-template-columns: minmax(40px, 1fr) minmax(240px, 1fr) minmax(40px, 1fr);
+    grid-template-rows: minmax(40px, 1fr) minmax(min-content, max-content) minmax(40px, 1fr);
+    justify-items: stretch;
+}

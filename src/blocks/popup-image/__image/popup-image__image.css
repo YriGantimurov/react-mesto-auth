@@ -1,0 +1,6 @@
+.popup-image__image {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    max-width: 75vw;
+    max-height: 75vh;
+}

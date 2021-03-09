@@ -1,0 +1,9 @@
+.form-confirm__submit-button {
+    margin-top: 0;
+  }
+
+  @media screen and (max-width: 635px) {
+    .form__submit-button {
+    margin-top: 0;
+    }
+}

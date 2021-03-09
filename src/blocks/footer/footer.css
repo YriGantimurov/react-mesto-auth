@@ -1,0 +1,12 @@
+@import url(./__copyright/footer__copyright.css);
+
+.footer{
+    margin: 66px 0 60px 0;
+}
+
+/* исправил отступы */
+@media screen and (max-width: 635px) {
+    .footer {
+        margin: 0 19px 36px;
+    }
+}

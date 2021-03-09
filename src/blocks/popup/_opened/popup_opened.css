@@ -1,0 +1,6 @@
+.popup_opened {
+    display: grid;
+    opacity: 1;
+    transition: opacity .4s linear;
+    visibility: visible;
+}

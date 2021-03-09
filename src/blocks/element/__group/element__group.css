@@ -1,0 +1,11 @@
+.element__group {
+    align-self: center;
+    justify-self: center;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    grid-column: 2/3;
+    grid-row: 2/3;
+}

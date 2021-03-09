@@ -1,0 +1,9 @@
+.profile__avatar-button {
+    background-color: transparent;
+    background-image: url(../../../images/avatar-button.png);
+    background-size: cover;
+    border: 0;
+
+    width: 26px;
+    height: 26px;
+}
