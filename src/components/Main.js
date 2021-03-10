@@ -1,5 +1,5 @@
 import React from 'react'
-import api from '../utils/Api';
+import api from '../utils/api';
 import Card from './Card.js'
 
 export default class Main extends React.Component {
@@ -30,7 +30,7 @@ export default class Main extends React.Component {
   getInitialCards = () => {
     this.api.getInitialCards()
       .then(getedCards => {
-        this.setState({ cards: getedCards }).call(Main)
+        this.setState({ cards: getedCards })
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
