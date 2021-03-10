@@ -1,6 +1,5 @@
-import avatarJpg from '../images/avatar.jpg'
 import React from 'react'
-import api from '../utils/Api';
+import api from '../utils/api';
 import Card from './Card.js'
 
 export default class Main extends React.Component {
@@ -36,21 +35,6 @@ export default class Main extends React.Component {
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       })
-  }
-
-  setInitialCards = () => {
-    listItems = this.cards.forEach((card, i) => {
-      a = <li className="elements__item element" key={card._id}>
-        <img src={card.link} alt="#" className="element__image" />
-        <p className="element__title">{card.name}</p>
-        <div className="element__group">
-          <button type="button" className="element__heart-button"></button>
-          <p className="element__likes"></p>
-        </div>
-        <button type="button" className="element__delete-button"></button>
-      </li>
-    })
-    return <ul className="elements">{listItems}</ul>
   }
 
   componentDidMount() {

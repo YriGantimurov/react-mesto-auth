@@ -4,17 +4,18 @@ export default class PopupWithForm extends React.Component {
         super(props);
         this.isOpen = ''
     }
-
-    componentDidUpdate() {
-        this.props.isOpen
-        ? this.isOpen = 'popup_opened'
-        : this.isOpen = ''
-    }
     
     render() {
+        {
+            this.props.isOpen
+            ? this.isOpen = 'popup_opened'
+            : this.isOpen = ''
+        }
         return (
-            <div className={`popup popup_type_${this.props.name} ${this.isOpen} `} id={`popup-${this.props.name}`}> {}
+            <div className={`popup popup_type_${this.props.name} ${this.isOpen} `} id={`popup-${this.props.name}`}>
+                <form className={`form form-${this.props.name}" name="form-${this.props.name}`} id={`form-${this.props.name}`}>
                 {this.props.children}
+                </form>
             <button type="button" className={`popup__close-button popup-${this.props.name}__close-button`} onClick={this.props.onClose}/>
             </div>
         )

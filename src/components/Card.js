@@ -5,13 +5,14 @@ export default class Card extends React.Component {
     }
 
     handleClick = () => {
-        this.props.handleCardClick(this.props.card.link);
-    }  
+        this.props.handleCardClick({link: this.props.card.link,
+                                    title: this.props.card.name});
+    }
 
     render() {
         return (
             <li className="elements__item element">
-                <img src={this.props.card.link} alt="#" className="element__image" onClick = {this.handleClick}/>
+                <img src={this.props.card.link} alt="#" className="element__image" onClick={this.handleClick} />
                 <p className="element__title">{this.props.card.name}</p>
                 <div className="element__group">
                     <button type="button" className="element__heart-button"></button>
