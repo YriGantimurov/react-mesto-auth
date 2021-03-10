@@ -1,3 +1,6 @@
+// {
+// Тренажёр выдаёт ошибку "Не экспортирован класс Api", если прописывать его с маленькой буквы.
+// }
 class api {
     constructor(options) {
         this._options = options;

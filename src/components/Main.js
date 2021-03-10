@@ -1,5 +1,5 @@
 import React from 'react'
-import api from '../utils/api';
+import api from '../utils/Api';
 import Card from './Card.js'
 
 export default class Main extends React.Component {
