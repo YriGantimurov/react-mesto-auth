@@ -1,5 +1,5 @@
 import React from 'react'
-import Api from '../utils/api';
+import api from '../utils/api.js';
 import Card from './Card.js'
 
 export default class Main extends React.Component {
@@ -11,7 +11,7 @@ export default class Main extends React.Component {
       avatar: '',
       cards: []
     }
-    this.api = Api
+    this.api = api
   }
 
   getInformation = () => {
