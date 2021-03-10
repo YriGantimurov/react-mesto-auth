@@ -98,14 +98,6 @@ class App extends React.Component {
         </>
       </PopupWithForm>
       <ImagePopup onClose = {this.popupFunctions.closeAllpopups} card = {this.state.selectedCard}/>
-    
-    
-    
-      </div>
-      <div className="popup popup-image" id="popup-image">
-        <img src="#" alt="#" className="popup-image__image" />
-        <button type="button" className="popup__close-button popup-image__close-button" />
-        <p className="popup-image__image-title" />
       </div>
     </>
     )
