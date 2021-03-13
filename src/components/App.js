@@ -60,6 +60,9 @@ class App extends React.Component {
   componentDidMount() {
     api.getUserInformation()
       .then(info => this.setState({ currentUser: info}))
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
     api.getInitialCards()
       .then(getedCards => {
         this.setState({ cards: getedCards })
@@ -70,28 +73,27 @@ class App extends React.Component {
   }
 
   handleUpdateUser = (name, description) => {
-    api.setUserInformation(name, description);
-    this.setState({currentUser: {
-      name: name,
-      about: description,
-      avatar: this.state.currentUser.avatar,
-      _id: this.state.currentUser._id,
-      cohort: this.state.currentUser.cohort,
-
-    }})
+    api.setUserInformation(name, description)
+    .then(info => {
+      this.setState({
+        currentUser: info
+      })
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   }
 
   handleUpdateAvatar = (link) => {
     api.setUserAvatar(link)
-    this.setState({currentUser: {
-      name: this.state.currentUser.name,
-      about: this.state.currentUser.about,
-      avatar: link,
-      _id: this.state.currentUser._id,
-      cohort: this.state.currentUser.cohort,
-
-    }
-  })
+    .then(info => {
+      this.setState({
+        currentUser: info
+      })
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   }
 
   handleCardDelete = (card) => {
@@ -105,6 +107,9 @@ class App extends React.Component {
           console.log(err); // выведем ошибку в консоль
         })
       })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
   }
 
   handleCardLike= (card) => {
@@ -115,11 +120,17 @@ class App extends React.Component {
       .then(newCard => {
         this.setState({cards: this.state.cards.map(c => c._id === card._id ? newCard : c)})
       })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
       } else {
       api.like(card._id)
       .then(newCard => {
         this.setState({cards: this.state.cards.map(c => c._id === card._id ? newCard : c)})
       })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
     }
 }
 
@@ -140,6 +151,9 @@ class App extends React.Component {
           cards: [newCard, ...this.state.cards]
         })
     })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   }
 
   render() {

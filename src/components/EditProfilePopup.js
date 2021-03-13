@@ -34,10 +34,10 @@ export default function EditProfilePopup(props) {
         <PopupWithForm isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
             <>
             <h2 className="form__title">Редактировать профиль</h2>
-            <input onChange={handleNameInputChange} id="name-input" required minLength={2} maxLength={40} type="text" 
+            <input value={name} onChange={handleNameInputChange} id="name-input" required minLength={2} maxLength={40} type="text" 
             className="form__input input input_type_name" name="name-input" placeholder="Имя"/>
             <span id="name-input-error" className="form__input-error" />
-            <input onChange={handleDescriptionInputChange} id="description-input" minLength={2} maxLength={200} required type="text" 
+            <input value={description} onChange={handleDescriptionInputChange} id="description-input" minLength={2} maxLength={200} required type="text" 
             className="form__input input input_type_description" name="description-input" placeholder="О себе"/>
             <span id="description-input-error" className="form__input-error" />
             <button type="submit" className="form__submit-button">Сохранить</button>
