@@ -5,46 +5,45 @@ import Main from './Main.js'
 import Footer from './Footer.js'
 import PopupWithForm from './PopupWithForm.js'
 import ImagePopup from './ImagePopup.js'
+import api from '../utils/api.js'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import EditProfilePopup from './EditProfilePopup'
+import EditAvatarPopup from './EditAvatarPopup'
+import AddPlacePopup from './AddPlacePopup'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.popupFunctions = {
       onEditProfile: () => {
-        this.setState({isEditProfilePopupOpen: true})
+        this.setState({ isEditProfilePopupOpen: true })
       },
-  
+
       onAddPlace: () => {
-        this.setState({isAddPlacePopupOpen: true})
+        this.setState({ isAddPlacePopupOpen: true })
       },
-  
+
       onEditAvatar: () => {
-        this.setState({isEditAvatarPopupOpen: true})      
+        this.setState({ isEditAvatarPopupOpen: true })
       },
 
-      closeAllpopups : () => 
-      {this.setState({
-        isEditProfilePopupOpen: false,
-        isAddPlacePopupOpen: false,
-        isEditAvatarPopupOpen: false,
-        isConfirmPopupOpen: false,
-        selectedCard: {
-          isImagePopupOpen: false,
-          src: ''
-        },
-      })}
-    }
-
-    this.handleCardClick = ({link, title}) => {
-      this.setState({
-        selectedCard: {
-        isImagePopupOpen: true,
-        link: link,
-        title: title
-      }})
+      closeAllpopups: () => {
+        this.setState({
+          isEditProfilePopupOpen: false,
+          isAddPlacePopupOpen: false,
+          isEditAvatarPopupOpen: false,
+          isConfirmPopupOpen: false,
+          selectedCard: {
+            isImagePopupOpen: false,
+            src: ''
+          },
+        })
+      }
     }
 
     this.state = {
+      cards: [],
+      currentUser: {},
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
@@ -54,51 +53,118 @@ class App extends React.Component {
         src: ''
       },
     }
+
+    
+  }
+
+  componentDidMount() {
+    api.getUserInformation()
+      .then(info => this.setState({ currentUser: info}))
+    api.getInitialCards()
+      .then(getedCards => {
+        this.setState({ cards: getedCards })
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+  }
+
+  handleUpdateUser = (name, description) => {
+    api.setUserInformation(name, description);
+    this.setState({currentUser: {
+      name: name,
+      about: description,
+      avatar: this.state.currentUser.avatar,
+      _id: this.state.currentUser._id,
+      cohort: this.state.currentUser.cohort,
+
+    }})
+  }
+
+  handleUpdateAvatar = (link) => {
+    api.setUserAvatar(link)
+    this.setState({currentUser: {
+      name: this.state.currentUser.name,
+      about: this.state.currentUser.about,
+      avatar: link,
+      _id: this.state.currentUser._id,
+      cohort: this.state.currentUser.cohort,
+
+    }
+  })
+  }
+
+  handleCardDelete = (card) => {
+      api.deleteCard(card._id)
+      .then(() => {
+        api.getInitialCards()
+        .then(getedCards => {
+          this.setState({ cards: getedCards })
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        })
+      })
+  }
+
+  handleCardLike= (card) => {
+    const isLiked = card.likes.some(i => i._id === this.state.currentUser._id);
+
+    if(isLiked) {
+      api.unlike(card._id)
+      .then(newCard => {
+        this.setState({cards: this.state.cards.map(c => c._id === card._id ? newCard : c)})
+      })
+      } else {
+      api.like(card._id)
+      .then(newCard => {
+        this.setState({cards: this.state.cards.map(c => c._id === card._id ? newCard : c)})
+      })
+    }
+}
+
+  handleCardClick = ({ link, title }) => {
+    this.setState({
+      selectedCard: {
+        isImagePopupOpen: true,
+        link: link,
+        title: title
+      }
+    })
+  }
+
+  handleAddCard = (title, link) => {
+    api.makeNewCard(title, link)
+    .then(newCard => {
+      this.setState({
+          cards: [newCard, ...this.state.cards]
+        })
+    })
   }
 
   render() {
     return (
-      <>
-      <div className="page">
-      <Header />
-      <Main handleCardClick = {this.handleCardClick} onEditProfile = {this.popupFunctions.onEditProfile} onAddPlace ={this.popupFunctions.onAddPlace} onEditAvatar = {this.popupFunctions.onEditAvatar}/>
-      <Footer />
-      <PopupWithForm onClose = {this.popupFunctions.closeAllpopups} name = 'new-place' isOpen = {this.state.isAddPlacePopupOpen}>
-      <>
-          <h2 className="form__title form-new-place__title">Новое место</h2>
-          <input id="title-input" required type="text" maxLength={30} className="form__input form-new-place__input input input_type_title" name="title-input" placeholder="Название" />
-          <span id="title-input-error" className="form__input-error" />
-          <input type="url" id="url-input" required className="form__input form-new-place__input input input_type_url" name="url-input" placeholder="Ссылка на картинку" />
-          <span id="url-input-error" className="form__input-error" />
-          <button type="submit" className="form__submit-button form-new-place__submit-button">Создать</button>
-        </>
-      </PopupWithForm>
-      <PopupWithForm onClose = {this.popupFunctions.closeAllpopups} isOpen = {this.state.isEditProfilePopupOpen} name = 'edit-profile'> 
-      <>
-          <h2 className="form__title">Редактировать профиль</h2>
-          <input id="name-input" required minLength={2} maxLength={40} type="text" className="form__input input input_type_name" name="name-input" placeholder="Имя" />
-          <span id="name-input-error" className="form__input-error" />
-          <input id="description-input" minLength={2} maxLength={200} required type="text" className="form__input input input_type_description" name="description-input" placeholder="О себе" />
-          <span id="description-input-error" className="form__input-error" />
-          <button type="submit" className="form__submit-button">Сохранить</button>
-        </>
-      </PopupWithForm>
-      <PopupWithForm onClose = {this.popupFunctions.closeAllpopups} isOpen = {this.state.isConfirmPopupOpen} name = 'confirm'>
         <>
-          <h2 className="form__title form-confirm__title">Вы уверены?</h2>
-          <button type="submit" className="form__submit-button form-confirm__submit-button">Да</button>
-        </>
-      </PopupWithForm>
-      <PopupWithForm onClose = {this.popupFunctions.closeAllpopups} isOpen = {this.state.isEditAvatarPopupOpen} name = 'new-avatar'>
-        <>
-          <h2 className="form__title form-new-avatar__title">Обновить аватар</h2>
-          <input type="url" id="new-avatar" required className="form__input form-new-avatar__input input input_type_avatar" name="url-input" placeholder="Ссылка на картинку" />
-          <span id="new-avatar-error" className="form__input-error" />
-          <button type="submit" className="form__submit-button form-new-avatar__submit-button">Сохранить</button>
-        </>
-      </PopupWithForm>
-      <ImagePopup onClose = {this.popupFunctions.closeAllpopups} card = {this.state.selectedCard}/>
-      </div>
+        <CurrentUserContext.Provider value = {this.state.currentUser}>
+          <div className="page">
+            <Header />
+            <Main 
+            onEditProfile={this.popupFunctions.onEditProfile} onAddPlace={this.popupFunctions.onAddPlace} onEditAvatar={this.popupFunctions.onEditAvatar} 
+            cards = {this.state.cards} onCardDelete={this.handleCardDelete} handleCardClick={this.handleCardClick} onCardLike={this.handleCardLike}
+            />
+            <Footer />
+            <AddPlacePopup onAddCard={this.handleAddCard} onClose={this.popupFunctions.closeAllpopups} name='new-place' isOpen={this.state.isAddPlacePopupOpen}/>
+            <EditProfilePopup onUpdateUser = {this.handleUpdateUser} onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isEditProfilePopupOpen}/>
+            <PopupWithForm onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isConfirmPopupOpen} name='confirm'>
+              <>
+                <h2 className="form__title form-confirm__title">Вы уверены?</h2>
+                <button type="submit" className="form__submit-button form-confirm__submit-button">Да</button>
+              </>
+            </PopupWithForm>
+            <EditAvatarPopup onUpdateAvatar = {this.handleUpdateAvatar} isOpen={this.state.isEditAvatarPopupOpen} onClose={this.popupFunctions.closeAllpopups} /> 
+            <ImagePopup onClose={this.popupFunctions.closeAllpopups} card={this.state.selectedCard} />
+          </div>
+        </CurrentUserContext.Provider>
     </>
     )
   }

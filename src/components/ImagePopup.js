@@ -6,6 +6,7 @@ export default class ImagePopup extends React.Component {
     }
 
     render() { 
+        // eslint-disable-next-line
         {
             this.props.card.isImagePopupOpen
             ? this.isOpen = 'popup_opened'
