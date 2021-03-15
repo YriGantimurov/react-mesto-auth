@@ -116,10 +116,14 @@ class App extends React.Component {
       })
     })
       .then(res => res.json())
-      .then(inf => {
-        localStorage.setItem('token', inf.token)
-        this.setState({ loggedIn: true })
-        this.props.history.push('/')
+      .then(inf => 
+        {
+          if(inf.token){
+            localStorage.setItem('token', inf.token)
+            this.setState({ loggedIn: true })
+            this.props.history.push('/')
+            this.setState({currentEmail: email})
+          }
       })
   }
 
@@ -251,6 +255,7 @@ class App extends React.Component {
       <>
         <CurrentUserContext.Provider value={this.state.currentUser}>
           <div className="page">
+            
             <Header isLoggedIn={this.state.loggedIn} currentEmail={this.state.currentEmail} onSignOut={this.onSignOut} />
 
             <Switch>

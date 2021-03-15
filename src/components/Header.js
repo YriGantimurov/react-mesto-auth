@@ -1,9 +1,8 @@
 import logoSvg from '../images/logo.svg'; 
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import React from'react'
 
-export default function Header(props) {
-
+function Header(props) {
     return (
       <header className="header">
         <img src={logoSvg} alt="Логотип" className="header__logo" />
@@ -17,3 +16,5 @@ export default function Header(props) {
     </header>
     )
 }
+
+export default withRouter(Header)

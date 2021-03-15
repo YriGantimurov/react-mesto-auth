@@ -17,6 +17,5 @@
 @import url(./blocks/form/__submit-button/_disabled/form__submit-button_disabled_true.css);
 @import url(./blocks/form/__input/_type/form__input_type_error.css);
 @import url(./blocks/form-confirm/form-confirm.css);
-@import url(./blocks/login/login.css);
 @import url(./blocks/form-auth/form-auth.css);
 @import url(./blocks/popup-tooltip/popup-tooltip.css) ;
