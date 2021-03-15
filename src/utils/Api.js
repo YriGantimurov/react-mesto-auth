@@ -18,7 +18,7 @@ class Api {
                 authorization: this._key
             }
         })
-        .then(this._checkResponse)
+        .then(this._checkResponse) 
     }
 
     getUserInformation() {
