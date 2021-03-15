@@ -1,0 +1,11 @@
+@import url(./__submit-button/form-auth__submit-button.css);
+@import url(./__title/form-auth__title.css);
+@import url(./__input/form-auth__input.css);
+
+.form-auth{
+    color: white;
+    background: #000000;
+    padding: 0;
+    width: 358px;
+    margin: 0 auto;
+}

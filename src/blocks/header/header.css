@@ -1,7 +1,10 @@
 @import url(./__logo/header__logo.css);
+@import url(./__status/header__status.css);
+@import url(./__email/header__email.css);
 
 .header {
     margin: 45px auto 0;
+    display: flex;
 }
 
 .header:after {
