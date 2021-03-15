@@ -15,6 +15,7 @@ export default class PopupWithForm extends React.Component {
         return (
             <div className={`popup popup_type_${this.props.name} ${this.isOpen} `} id={`popup-${this.props.name}`}>
                 <form onSubmit={this.props.onSubmit} className={`form form-${this.props.name}" name="form-${this.props.name}`} id={`form-${this.props.name}`}>
+                <h2 className="form__title form-new-avatar__title">{this.props.title}</h2>
                 {this.props.children}
                 </form>
             <button type="button" className={`popup__close-button popup-${this.props.name}__close-button`} onClick={this.props.onClose}/>

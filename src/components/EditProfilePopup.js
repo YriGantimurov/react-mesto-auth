@@ -8,8 +8,8 @@ export default function EditProfilePopup(props) {
     const currentUser = React.useContext(CurrentUserContext)
 
     React.useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
+        setName(currentUser.name || '');
+        setDescription(currentUser.about || '');
     }, [currentUser]);
 
 
@@ -31,9 +31,8 @@ export default function EditProfilePopup(props) {
 
     return (
     <>
-        <PopupWithForm isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+        <PopupWithForm title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
             <>
-            <h2 className="form__title">Редактировать профиль</h2>
             <input value={name} onChange={handleNameInputChange} id="name-input" required minLength={2} maxLength={40} type="text" 
             className="form__input input input_type_name" name="name-input" placeholder="Имя"/>
             <span id="name-input-error" className="form__input-error" />

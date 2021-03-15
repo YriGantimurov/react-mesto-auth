@@ -31,7 +31,7 @@ export default class Card extends React.Component {
         this.cardLikeButtonClassName = `${this.isLiked ? 'element__heart-button_theme_pushed' : ''}`; 
         return (
             <li className="elements__item element">
-                <img src={this.props.card.link} alt="#" className="element__image" onClick={this.handleClick} />
+                <img src={this.props.card.link} alt={this.props.card.name} className="element__image" onClick={this.handleClick} />
                 <p className="element__title">{this.props.card.name}</p>
                 <div className="element__group">
                     <button onClick = {this.onCardLike} type="button" className={`element__heart-button ${this.cardLikeButtonClassName}`}></button>

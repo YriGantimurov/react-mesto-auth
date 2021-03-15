@@ -16,6 +16,7 @@ import Login from './Login'
 import Register from './Register'
 import ProtectedRoute from './ProtectedRoute'
 import InfoTooltip from './InfoTooltip'
+import auth from '../utils/auth'
 
 class App extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class App extends React.Component {
     }
 
     this.state = {
-      InfoTooltipisAccept: false,
+      infoTooltipisAccept: false,
       currentEmail: '',
       loggedIn: false,
       cards: [],
@@ -68,30 +69,19 @@ class App extends React.Component {
   }
 
   onRegister = (password, email) => {
-    fetch(`https://auth.nomoreparties.co/signup`, {
-      method: 'POST',
-      headers: {
-        authorization: '903df890-7445-4454-b32e-ead2e8ee9036',
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "password": password,
-        "email": email
-      })
-    })
+    auth.register(password, email)
       .then(res => res.json())
       .then(inf => {
         if (inf.data) {
           this.setState({
             isTooltipPopupOpen: true,
-            InfoTooltipisAccept: true,
+            infoTooltipisAccept: true,
           })
         } 
         else {
           this.setState({
             isTooltipPopupOpen: true,
-            InfoTooltipisAccept: false,
+            infoTooltipisAccept: false,
           })
         }
         
@@ -100,21 +90,12 @@ class App extends React.Component {
         console.log(err)
       })
 
+      this.props.history.push('/')
+
   }
 
   onLogin = (password, email) => {
-    fetch(`https://auth.nomoreparties.co/signin`, {
-      method: 'POST',
-      headers: {
-        authorization: '903df890-7445-4454-b32e-ead2e8ee9036',
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "password": password,
-        "email": email
-      })
-    })
+    auth.login(password, email)
       .then(res => res.json())
       .then(inf => 
         {
@@ -146,13 +127,7 @@ class App extends React.Component {
         console.log(err); // выведем ошибку в консоль
       })
 
-    fetch(`https://auth.nomoreparties.co/users/me`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem('token')}`
-      }
-    })
+    auth.authentification()
       .then(res => res.json())
       .then(inf => {
         if (inf.data) {
@@ -279,7 +254,7 @@ class App extends React.Component {
               />
             </Switch>
             <Footer />
-            <InfoTooltip isAccept={this.state.InfoTooltipisAccept} onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isTooltipPopupOpen} />
+            <InfoTooltip isAccept={this.state.infoTooltipisAccept} onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isTooltipPopupOpen} />
             <AddPlacePopup onAddCard={this.handleAddCard} onClose={this.popupFunctions.closeAllpopups} name='new-place' isOpen={this.state.isAddPlacePopupOpen} />
             <EditProfilePopup onUpdateUser={this.handleUpdateUser} onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isEditProfilePopupOpen} />
             <PopupWithForm onClose={this.popupFunctions.closeAllpopups} isOpen={this.state.isConfirmPopupOpen} name='confirm'>
