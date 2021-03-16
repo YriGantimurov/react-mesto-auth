@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-mesto-auth/static/css/main.44c0c82c.chunk.css",
+    "main.css": "/react-mesto-auth/static/css/main.6b0e53fb.chunk.css",
     "main.js": "/react-mesto-auth/static/js/main.589080a1.chunk.js",
     "main.js.map": "/react-mesto-auth/static/js/main.589080a1.chunk.js.map",
     "runtime-main.js": "/react-mesto-auth/static/js/runtime-main.ce0c06b7.js",
@@ -10,7 +10,7 @@
     "static/js/3.08e9cffd.chunk.js": "/react-mesto-auth/static/js/3.08e9cffd.chunk.js",
     "static/js/3.08e9cffd.chunk.js.map": "/react-mesto-auth/static/js/3.08e9cffd.chunk.js.map",
     "index.html": "/react-mesto-auth/index.html",
-    "static/css/main.44c0c82c.chunk.css.map": "/react-mesto-auth/static/css/main.44c0c82c.chunk.css.map",
+    "static/css/main.6b0e53fb.chunk.css.map": "/react-mesto-auth/static/css/main.6b0e53fb.chunk.css.map",
     "static/js/2.30e642e5.chunk.js.LICENSE.txt": "/react-mesto-auth/static/js/2.30e642e5.chunk.js.LICENSE.txt",
     "static/media/index.css": "/react-mesto-auth/static/media/pushed-heart-button.75438e94.svg",
     "static/media/logo.a307e1c4.svg": "/react-mesto-auth/static/media/logo.a307e1c4.svg"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.ce0c06b7.js",
     "static/js/2.30e642e5.chunk.js",
-    "static/css/main.44c0c82c.chunk.css",
+    "static/css/main.6b0e53fb.chunk.css",
     "static/js/main.589080a1.chunk.js"
   ]
 }
